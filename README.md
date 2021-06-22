@@ -6,13 +6,13 @@ for quick install run
 docker compose up
 ```
 
-Ports:
+### Ports:
 * http://localhost - Webserver (internal hostname: php-apache)
 * http://localhost:8055 - Directus Backend (internal hostname: directus)
 * http://localhost:8000 - phpmyadmin (internal hostname: phpmyadmin)
 * http://localhost:8025 - mailhog (internal hostname: mailhog - smtp port: 1025)
 
-Database:
+### Database:
 ```
  hostname: mariadb
  port: 3306
@@ -20,3 +20,10 @@ Database:
  db user: db
  db password: db
  ```
+
+ ### initial Directus User:
+ ```
+ username: admin@example.com
+ password: admin
+ ```
+
