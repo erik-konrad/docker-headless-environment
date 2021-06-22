@@ -1,0 +1,58 @@
+version: '3'
+services: 
+    php-apache:
+        build: 
+            context: ./apache
+        ports: 
+            - 80:80
+        volumes:
+            - ./public:/var/www/html
+        links:
+            - 'mariadb'
+    mariadb:
+        image: mariadb:latest
+        volumes:
+            - mariadb:/var/lib/mysql
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "db"
+            MYSQL_USER: 'db'
+            MYSQL_PASSWORD: 'db'
+            MYSQL_DATABASE: 'db'
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - 8000:80
+        environment: 
+            - PMA_ARBITRARY=1
+            - PMA_HOST=mariadb
+    directus:
+        image: directus/directus:latest
+        ports:
+            - 8055:8055
+        volumes:
+            - ./directus/uploads:/directus/uploads
+            - ./directus/extensions:/directus/extensions
+        environment:
+            PUBLIC_URL: 'http://localhost:8055'
+            KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
+            SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
+            DB_CLIENT: 'mysql'
+            DB_HOST: 'mariadb'
+            DB_PORT: '3306'
+            DB_DATABASE: 'db'
+            DB_USER: 'db'
+            DB_PASSWORD: 'db'
+            ADMIN_EMAIL: 'admin@example.com'
+            ADMIN_PASSWORD: 'admin'
+            EMAIL_FROM: 'no-reply@directus.io'
+            EMAIL_TRANSPORT: 'smtp'
+            EMAIL_SMTP_HOST: 'mailhog'
+            EMAIL_SMTP_PORT: 1025
+    mailhog:
+        image: mailhog/mailhog:latest
+        ports:
+            - 8025:8025
+            - 1025:1025
+volumes:
+    mariadb:
