@@ -11,6 +11,7 @@ docker compose up
 * http://localhost:8055 - Directus Backend (internal hostname: directus)
 * http://localhost:8000 - phpmyadmin (internal hostname: phpmyadmin)
 * http://localhost:8025 - mailhog (internal hostname: mailhog - smtp port: 1025)
+* http://localhost:8080 - Matomo (internal hostname: matomo)
 
 ### Database:
 ```
